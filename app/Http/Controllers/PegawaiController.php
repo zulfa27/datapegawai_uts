@@ -11,7 +11,7 @@ class PegawaiController extends Controller
 {
     public function list()
     {
-        $hasil = DB::select('select * from pegawai');
+        $hasil = DB::select('select * from table_pegawai');
         return view('list-pegawai', ['data' => $hasil]);
     }
     public function simpan(Request $req)
@@ -20,20 +20,20 @@ class PegawaiController extends Controller
             'insert into pegawai (nip,nama, alamat) values (?, ?, ?)',
             [$req->nip, $req->nama, $req->alamat]
         );
-        $hasil = DB::select('select * from pegawai');
+        $hasil = DB::select('select * from table_pegawai');
         return view('list-pegawai', ['data' => $hasil]);
     }
     public function hapus($req)
     {
         Log::info('proses hapus dengan id=' . $req);
-        DB::delete('delete from pegawai where id = ?', [$req]);
+        DB::delete('delete from table_pegawai where id = ?', [$req]);
 
-        $hasil = DB::select('select * from pegawai');
+        $hasil = DB::select('select * from table_pegawai');
         return view('list-pegawai', ['data' => $hasil]);
     }
     public function ubah($req)
     {
-        $hasil = DB::select('select * from pegawai where id = ?', [$req]);
+        $hasil = DB::select('select * from table_pegawai where id = ?', [$req]);
         return view('form-ubah', ['data' => $hasil]);
     }
     public function rubah(Request $req)
@@ -41,7 +41,7 @@ class PegawaiController extends Controller
         Log::info('Hallo');
         Log::info($req);
         DB::update(
-            'update pegawai set ' .
+            'update table_pegawai set ' .
                 'nip=?, ' .
                 'nama=?, ' .
                 'alamat=? where id=? ',
@@ -52,7 +52,7 @@ class PegawaiController extends Controller
                 $req->id
             ]
         );
-        $hasil = DB::select('select * from pegawai');
+        $hasil = DB::select('select * from table_pegawai');
         return view('list-pegawai', ['data' => $hasil]);
     }
 }
